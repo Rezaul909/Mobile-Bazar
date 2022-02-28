@@ -42,11 +42,10 @@ const detailsPhone = phoneId =>{
 
 const displayDetails = phoneId =>{
     console.log(phoneId);
-    // console.log(phoneId.data.mainFeatures.sensors);
     const sensors = phoneId.data.mainFeatures.sensors;
-    for(const sensor of sensors){
-        console.log(sensor);
-    }
+    // for(const sensor of sensors){
+    //     console.log(sensor);
+    // }
     const phoneDetails = document.getElementById("phone-details");
     const div = document.createElement("div");
     div.innerHTML = `
@@ -63,6 +62,10 @@ const displayDetails = phoneId =>{
                     <span class="fw-bolder">Memory: </span>${phoneId.data.mainFeatures.memory}<hr>
                     <span class="fw-bolder">Storage: </span>${phoneId.data.mainFeatures.storage}<hr>
                 </p>
+
+                <h5 class="text-info text-decoration-underline">Sensors:</h5>
+                <p>${sensors}</p><hr>
+            
                 <h5 class="text-info text-decoration-underline">Others:</h5>
                 <p>
                     <span class="fw-bolder">Bluetooth: </span>${phoneId.data.others.Bluetooth}<hr>
