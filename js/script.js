@@ -2,16 +2,23 @@ const loadData= () =>{
     const inputField = document.getElementById("input-field");
     const inputValue = inputField.value;
 
-    const url = `https://openapi.programming-hero.com/api/phones?search=${inputValue}`;
-    fetch(url)
-    .then(response => response.json())
-    .then(data => displayPhone(data.data))
-
-    inputField.value = "";
+    if(inputValue == ''){
+        document.getElementById("phone-details").innerHTML = `
+            <h4 class="text-danger text-center fw-bold">Please enter a valid brand name</h4>
+        `;
+    }
+    else{
+        const url = `https://openapi.programming-hero.com/api/phones?search=${inputValue}`;
+        fetch(url)
+        .then(response => response.json())
+        .then(data => displayPhone(data.data))
+        inputField.value = "";
+    }
 }
 
 const displayPhone = phones => {
-    // console.log(phones);
+    document.getElementById("phone-details").innerHTML = "";
+    document.getElementById("card-container").innerHTML = "";
     for(const phone of phones){
         // console.log(phone);
         const parentDiv = document.getElementById("card-container");
@@ -41,11 +48,9 @@ const detailsPhone = phoneId =>{
 }
 
 const displayDetails = phoneId =>{
+    document.getElementById("phone-details").innerHTML = "";
     console.log(phoneId);
     const sensors = phoneId.data.mainFeatures.sensors;
-    // for(const sensor of sensors){
-    //     console.log(sensor);
-    // }
     const phoneDetails = document.getElementById("phone-details");
     const div = document.createElement("div");
     div.innerHTML = `
