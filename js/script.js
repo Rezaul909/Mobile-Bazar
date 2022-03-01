@@ -1,6 +1,7 @@
 const errorMassage = () =>{
     document.getElementById("phone-details").innerHTML = `
-            <h4 class="text-danger text-center fw-bold">Please enter a valid brand name</h4>
+            <h1 class="text-danger text-center fw-bold">4<span class="fs-2">☹️</span>4</h1>
+            <h5 class="text-danger text-center fw-normal">No phone founded. Please enter a valid brand name</h5>
         `;
 }
 const loadData= () =>{
@@ -27,10 +28,10 @@ const displayPhone = phones => {
         errorMassage();
     }
     else{
-        console.log(phones);
+        // console.log(phones);
         for(let i=0; i<20; i++){
             const phone = phones[i];
-            console.log(phone);
+            // console.log(phone.image);
             const parentDiv = document.getElementById("card-container");
             const div = document.createElement("div");
             div.classList.add('col')
@@ -41,13 +42,19 @@ const displayPhone = phones => {
                         <h4 class="card-title">Model: ${phone.phone_name}</h4>
                         <p class="card-text">Brand: ${phone.brand}</p>
                     </div>
-                    <div class="card-footer">
-                        <a onClick="detailsPhone('${phone.slug}')" href="#" class="btn btn-primary">See Details</a>
+                    <div class="card-footer mx-auto rounded pb-2 mb-2">
+                        <a onClick="detailsPhone('${phone.slug}')" href="#" class="btn btn-outline-success fw-bolder">See Details</a>
                     </div>
                 </div>
             `;
             parentDiv.appendChild(div);
         }
+        // div.innerHTML = `
+        //     <button class="btn btn-outline-secondary fw-bolder" type="submit">
+        //         Show All Phones
+        //     </button>
+        // `;
+        // parentDiv.appendChild(div);
     } 
 }
 
@@ -60,16 +67,20 @@ const detailsPhone = phoneId =>{
 
 const displayDetails = phoneId =>{
     document.getElementById("phone-details").innerHTML = "";
-    console.log(phoneId);
+    // console.log(phoneId.data.releaseDate);
+    // console.log(phoneId.data.others.Bluetooth);
     const sensors = phoneId.data.mainFeatures.sensors;
     const phoneDetails = document.getElementById("phone-details");
+
     const div = document.createElement("div");
     div.innerHTML = `
         <div class="card mx-auto mb-5" style="width: 18rem;">
             <img src="${phoneId.data.image}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h4 class="card-title">Model: ${phoneId.data.name}</h4>
-                <p class="fst-italic">${phoneId.data.releaseDate}</p>
+                <p class="card-text">
+                    <small>${phoneId.data.releaseDate ? phoneId.data.releaseDate : "No release date found!"}</small>
+                </p>
                 <p class="card-text">Brand: ${phoneId.data.brand} </p>
                 <h5 class="text-info text-decoration-underline">Main Features:</h5>
                 <p>
@@ -78,21 +89,27 @@ const displayDetails = phoneId =>{
                     <span class="fw-bolder">Memory: </span>${phoneId.data.mainFeatures.memory}<hr>
                     <span class="fw-bolder">Storage: </span>${phoneId.data.mainFeatures.storage}<hr>
                 </p>
-
                 <h5 class="text-info text-decoration-underline">Sensors:</h5>
                 <p>${sensors}</p><hr>
-            
+
                 <h5 class="text-info text-decoration-underline">Others:</h5>
                 <p>
-                    <span class="fw-bolder">Bluetooth: </span>${phoneId.data.others.Bluetooth}<hr>
-                    <span class="fw-bolder">GPS: </span>${phoneId.data.others.GPS}<hr>
-                    <span class="fw-bolder">NFC: </span>${phoneId.data.others.NFC}<hr>
-                    <span class="fw-bolder">Radio: </span>${phoneId.data.others.Radio}<hr>
-                    <span class="fw-bolder">USB: </span>${phoneId.data.others.USB}<hr>
-                    <span class="fw-bolder">WLAN: </span>${phoneId.data.others.WLAN}<hr>
+                    <span class="fw-bolder">Bluetooth: </span>
+                    ${phoneId.data.others ?.Bluetooth ? phoneId.data.others.Bluetooth : "Data is not found!"}<hr>
+                    <span class="fw-bolder">GPS: </span>
+                    ${phoneId.data.others ?.GPS ? phoneId.data.others.GPS : "Data is not found!"}<hr>
+                    <span class="fw-bolder">NFC: </span>
+                    ${phoneId.data.others ?.NFC ? phoneId.data.others.NFC : "Data is not found!"}<hr>
+                    <span class="fw-bolder">Radio: </span>
+                    ${phoneId.data.others ?.Radio ? phoneId.data.others.Radio : "Data is not found!"}<hr>
+                    <span class="fw-bolder">USB: </span>
+                    ${phoneId.data.others ?.USB ? phoneId.data.others.USB : "Data is not found!"}<hr>
+                    <span class="fw-bolder">WLAN: </span>
+                    ${phoneId.data.others ?.WLAN ? phoneId.data.others.WLAN : "Data is not found!"}
                 </p>
             </div>
         </div>
     `;
     phoneDetails.appendChild(div);
+    console.log(phoneId.data);
 }
