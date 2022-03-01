@@ -23,20 +23,17 @@ const loadData= () =>{
 }
 
 const displayPhone = phones => {
-    // console.log(phones);
     if(phones == ''){
         errorMassage();
     }
     else{
-        // console.log(phones);
         for(let i=0; i<20; i++){
             const phone = phones[i];
-            // console.log(phone.image);
             const parentDiv = document.getElementById("card-container");
             const div = document.createElement("div");
-            div.classList.add('col')
+            div.classList.add('col');
             div.innerHTML = `
-                <div class="card h-100">
+                <div class="card h-100 ">
                     <img src="${phone.image}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h4 class="card-title">Model: ${phone.phone_name}</h4>
@@ -49,12 +46,6 @@ const displayPhone = phones => {
             `;
             parentDiv.appendChild(div);
         }
-        // div.innerHTML = `
-        //     <button class="btn btn-outline-secondary fw-bolder" type="submit">
-        //         Show All Phones
-        //     </button>
-        // `;
-        // parentDiv.appendChild(div);
     } 
 }
 
@@ -67,8 +58,6 @@ const detailsPhone = phoneId =>{
 
 const displayDetails = phoneId =>{
     document.getElementById("phone-details").innerHTML = "";
-    // console.log(phoneId.data.releaseDate);
-    // console.log(phoneId.data.others.Bluetooth);
     const sensors = phoneId.data.mainFeatures.sensors;
     const phoneDetails = document.getElementById("phone-details");
 
@@ -111,5 +100,4 @@ const displayDetails = phoneId =>{
         </div>
     `;
     phoneDetails.appendChild(div);
-    console.log(phoneId.data);
 }

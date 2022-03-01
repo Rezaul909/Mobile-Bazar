@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@500&display=swap');
+
+body{
+    background-color:rgb(227, 255, 246);
+    padding-bottom: 50px;
+    font-family: 'Lora', serif;
+}
+.bg-container{
+    background-color: #b9eede;
+}
+
+.highlight{
+    color: #6F42C1;
+}
