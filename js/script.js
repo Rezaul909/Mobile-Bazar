@@ -1,43 +1,54 @@
+const errorMassage = () =>{
+    document.getElementById("phone-details").innerHTML = `
+            <h4 class="text-danger text-center fw-bold">Please enter a valid brand name</h4>
+        `;
+}
 const loadData= () =>{
+    document.getElementById("phone-details").innerHTML = "";
+    document.getElementById("card-container").innerHTML = "";
     const inputField = document.getElementById("input-field");
     const inputValue = inputField.value;
 
     if(inputValue == ''){
-        document.getElementById("phone-details").innerHTML = `
-            <h4 class="text-danger text-center fw-bold">Please enter a valid brand name</h4>
-        `;
+        errorMassage();
     }
     else{
         const url = `https://openapi.programming-hero.com/api/phones?search=${inputValue}`;
         fetch(url)
         .then(response => response.json())
-        .then(data => displayPhone(data.data))
+        .then(data => displayPhone(data.data))  
         inputField.value = "";
     }
 }
 
 const displayPhone = phones => {
-    document.getElementById("phone-details").innerHTML = "";
-    document.getElementById("card-container").innerHTML = "";
-    for(const phone of phones){
-        // console.log(phone);
-        const parentDiv = document.getElementById("card-container");
-        const div = document.createElement("div");
-        div.classList.add('col')
-        div.innerHTML = `
-            <div class="card h-100">
-                <img src="${phone.image}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h4 class="card-title">Model: ${phone.phone_name}</h4>
-                    <p class="card-text">Brand: ${phone.brand}</p>
-                </div>
-                <div class="card-footer">
-                    <a onClick="detailsPhone('${phone.slug}')" href="#" class="btn btn-primary">See Details</a>
-                </div>
-            </div>
-        `;
-        parentDiv.appendChild(div);
+    // console.log(phones);
+    if(phones == ''){
+        errorMassage();
     }
+    else{
+        console.log(phones);
+        for(let i=0; i<20; i++){
+            const phone = phones[i];
+            console.log(phone);
+            const parentDiv = document.getElementById("card-container");
+            const div = document.createElement("div");
+            div.classList.add('col')
+            div.innerHTML = `
+                <div class="card h-100">
+                    <img src="${phone.image}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h4 class="card-title">Model: ${phone.phone_name}</h4>
+                        <p class="card-text">Brand: ${phone.brand}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a onClick="detailsPhone('${phone.slug}')" href="#" class="btn btn-primary">See Details</a>
+                    </div>
+                </div>
+            `;
+            parentDiv.appendChild(div);
+        }
+    } 
 }
 
 const detailsPhone = phoneId =>{
