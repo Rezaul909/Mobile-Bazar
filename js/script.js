@@ -1,10 +1,15 @@
 const errorMassage = () =>{
     document.getElementById("phone-details").innerHTML = `
             <h1 class="text-danger text-center fw-bold">4<span class="fs-2">☹️</span>4</h1>
-            <h5 class="text-danger text-center fw-normal">No phone founded. Please enter a valid brand name</h5>
+            <h5 class="text-danger text-center fw-normal">Not found. Please enter a valid brand name</h5>
         `;
+        toggleSpinner('none');
+}
+const toggleSpinner = style => {
+    document.getElementById("spinner").style.display = style;
 }
 const loadData= () =>{
+    toggleSpinner('block');
     document.getElementById("phone-details").innerHTML = "";
     document.getElementById("card-container").innerHTML = "";
     const inputField = document.getElementById("input-field");
@@ -27,9 +32,9 @@ const displayPhone = phones => {
         errorMassage();
     }
     else{
+        const parentDiv = document.getElementById("card-container");
         for(let i=0; i<20; i++){
             const phone = phones[i];
-            const parentDiv = document.getElementById("card-container");
             const div = document.createElement("div");
             div.classList.add('col');
             div.innerHTML = `
@@ -45,6 +50,15 @@ const displayPhone = phones => {
                 </div>
             `;
             parentDiv.appendChild(div);
+            toggleSpinner('none');
+            // if(i>=20){
+            //     const div = document.createElement("div");
+            //     div.innerHTML = `
+            //         <button onClick="loadData()" class="btn btn-outline-success fw-bolder" type="button" id="input-btn"> Search
+            //         </button>
+            //     `;
+            //     parentDiv.appendChild(div);
+            // }
         }
     } 
 }

@@ -5,6 +5,9 @@ body{
     padding-bottom: 50px;
     font-family: 'Lora', serif;
 }
+#spinner{
+    display: none;
+}
 .bg-container{
     background-color: #b9eede;
 }
