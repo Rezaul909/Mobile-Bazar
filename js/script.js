@@ -1,3 +1,4 @@
+// showing error massage 
 const errorMassage = () =>{
     document.getElementById("phone-details").innerHTML = `
             <h1 class="text-danger text-center fw-bold">4<span class="fs-2">☹️</span>4</h1>
@@ -5,9 +6,11 @@ const errorMassage = () =>{
         `;
         toggleSpinner('none');
 }
+// toggling spinner -----------------------------------------
 const toggleSpinner = style => {
     document.getElementById("spinner").style.display = style;
 }
+// function for loading data ==========================================
 const loadData= () =>{
     toggleSpinner('block');
     document.getElementById("phone-details").innerHTML = "";
@@ -26,8 +29,9 @@ const loadData= () =>{
         inputField.value = "";
     }
 }
-
+// function for displaying data =========================================
 const displayPhone = phones => {
+    // checking undefined values 
     if(phones == ''){
         errorMassage();
     }
@@ -38,8 +42,8 @@ const displayPhone = phones => {
             const div = document.createElement("div");
             div.classList.add('col');
             div.innerHTML = `
-                <div class="card h-100 ">
-                    <img src="${phone.image}" class="card-img-top" alt="...">
+                <div class="card h-100 text-center rounded-pill">
+                    <img src="${phone.image}" class="card-img-top rounded-3" alt="...">
                     <div class="card-body">
                         <h4 class="card-title">Model: ${phone.phone_name}</h4>
                         <p class="card-text">Brand: ${phone.brand}</p>
@@ -51,25 +55,17 @@ const displayPhone = phones => {
             `;
             parentDiv.appendChild(div);
             toggleSpinner('none');
-            // if(i>=20){
-            //     const div = document.createElement("div");
-            //     div.innerHTML = `
-            //         <button onClick="loadData()" class="btn btn-outline-success fw-bolder" type="button" id="input-btn"> Search
-            //         </button>
-            //     `;
-            //     parentDiv.appendChild(div);
-            // }
         }
     } 
 }
-
+// function for load phone details =====================================
 const detailsPhone = phoneId =>{
     const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
     fetch(url)
     .then(response => response.json())
     .then(data => displayDetails(data))
 }
-
+// function for show phone details =====================================
 const displayDetails = phoneId =>{
     document.getElementById("phone-details").innerHTML = "";
     const sensors = phoneId.data.mainFeatures.sensors;
